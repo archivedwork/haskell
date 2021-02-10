@@ -1,2 +1,2 @@
-# haskell
+# Haskell
 Haskell Programming 

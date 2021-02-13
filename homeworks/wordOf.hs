@@ -1,6 +1,4 @@
-module WordOf where 
-
-
+module WordOf where
 
 -- takeWord ""           == ""
 -- takeWord " tree"      == ""
@@ -13,9 +11,6 @@ module WordOf where
         | otherwise    = x : takeWord xs
 
 
-
-
-
 -- dropWord ""           == ""
 -- dropWord " tree"      == " tree"
 -- dropWord "apple tree" == " tree"
@@ -24,7 +19,7 @@ module WordOf where
 
     dropWord :: [Char] -> [Char]
     dropWord "" = ""
-    dropWord (x:xs) 
+    dropWord (x:xs)
         | x == ' '    = helperDrop (x:xs)
         | otherwise  = dropWord xs
 
@@ -37,8 +32,11 @@ module WordOf where
 -- wordsOf "apple tree"                                   == ["apple","tree"]
 -- wordsOf "   Recursive    functions   are  common in   Haskell.    "            == ["Recursive","functions","are","common","in","Haskell."]
 
-    wordOf "" = []
-    wordOf (x:xs)
-        | x == ' '    =  x : wordOf xs
-        | otherwise   = takeWord (x:xs)
-  
+    wordsOf "" = []
+    wordsOf (x:xs)
+        | x == ' '     = [dropWord (x:xs)]
+        | x /= ' '     = [takeWord (x:xs)]
+       
+       
+       
+       --  | otherwise    = [takeWord (x:xs)]

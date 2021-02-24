@@ -7,5 +7,3 @@ module Matches where
     matches (x,y) (a,b)
         | x == a  || y == a || x == b   =  True 
         | otherwise                     = False 
-
-        

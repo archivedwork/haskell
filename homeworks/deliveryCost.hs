@@ -23,7 +23,7 @@ module DeliveryCost where
 
     deliveryCost [] = 0
     deliveryCost ((name, weight, price):xs)
-        | weight >= 50  = 0
+        | weight >= 50  = 0  
         | calculateCost price xs >= 30000 = 5000
         | otherwise    = 10000
 
@@ -33,8 +33,8 @@ module DeliveryCost where
 
 
 
-    checkWeight :: (Ord a, Num a) => [a] -> Bool
-    checkWeight [] = False
-    checkWeight  (x:xs)
-        | x >= 50  = True 
-        | otherwise = checkWeight xs
+    -- checkWeight :: (Ord a, Num a) => [a] -> Bool
+    -- checkWeight [] = False
+    -- checkWeight  (x:xs)
+    --     | x >= 50  = True 
+    --     | otherwise = checkWeight xs

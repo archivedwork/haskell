@@ -33,6 +33,7 @@ module DeliveryCost where
 
 
 
+    checkWeight :: (Ord a, Num a) => [a] -> Bool
     checkWeight [] = False
     checkWeight  (x:xs)
         | x >= 50  = True 

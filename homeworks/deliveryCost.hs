@@ -20,21 +20,27 @@ module DeliveryCost where
     --     then 5000
     -- else 
     --     10000
-
+    deliveryCost :: [(String, Float, Int)] -> Int
     deliveryCost [] = 0
-    deliveryCost ((name, weight, price):xs)
-        | weight >= 50  = 0  
+    deliveryCost list@((name, weight, price):xs)
+        | checkWeight (myList list) = 0
         | calculateCost price xs >= 30000 = 5000
         | otherwise    = 10000
 
+    myList :: [(String, Float, Int)] -> [Float]
+    myList [] = []
+    myList (x@(a, y, z):xs) = y : myList xs
 
+
+    calculateCost :: Num p => p -> [a] -> p
     calculateCost p []      = 0 
     calculateCost p (x:xs)  =  p + calculateCost p xs 
 
 
 
     -- checkWeight :: (Ord a, Num a) => [a] -> Bool
-    -- checkWeight [] = False
-    -- checkWeight  (x:xs)
-    --     | x >= 50  = True 
-    --     | otherwise = checkWeight xs
+    checkWeight :: (Ord a, Num a) => [a] -> Bool
+    checkWeight [] = False
+    checkWeight  (x:xs)
+        | x >= 50  = True
+        | otherwise = checkWeight xs

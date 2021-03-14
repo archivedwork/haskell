@@ -57,6 +57,8 @@ isReserved st
 -- not (isValid "mod$")
 
 isValid :: [Char] -> Bool
-isValid st@(x:xs) 
-    | isLower x || x `elem` "_" = True 
-    | otherwise = not (isReserved st)
+isValid (x:xs)
+    | isReserved (x:xs)   = False
+  --  | isIdentifierStart x = False
+    | isIdentifierPart x = True 
+    | otherwise = False

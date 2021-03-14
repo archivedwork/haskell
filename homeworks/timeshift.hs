@@ -14,3 +14,4 @@ module Timeshift where
         | sft < 60   = (h, m+sft)
         | sft == 60  = ((h+1) `mod` 24, m)
         | sft == 90  = ((h+1) `mod` 24, m + sft `mod` 60)
+        

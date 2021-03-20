@@ -29,5 +29,5 @@ shift ((a,b):xs) c
 -- encrypt [] "pug" == "???"
 
 encrypt _ [] = ""
-encrypt [] (y:ys) = '?' : encrypt [] ys
-encrypt aa@((a,b):xs) (y:ys) = shift aa y : encrypt xs ys
+encrypt aa@((a,b):xs) (y:ys) = shift aa y : encrypt aa ys
+encrypt [] (y:ys) = '?' : encrypt [] ys --  error

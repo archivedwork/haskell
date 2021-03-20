@@ -35,7 +35,7 @@ module WordOf where
     wordsOf "" = []
     wordsOf (x:xs)
         | x == ' '     = wordsOf xs
-        | x /= ' '     = [takeWord (x:xs)] ++ wordsOf (dropWord xs)
+        | x /= ' '     = takeWord (x:xs) :  wordsOf (dropWord (x:xs))
        
        
        

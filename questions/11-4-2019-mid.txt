@@ -1,0 +1,106 @@
+Preliminary information
+Allowed materials:
+
+Haskell library documentation,
+Hoogle,
+Haskell cheat sheet
+course home page.
+
+If you have questions, ask the supervisors, not your fellow students.
+You can solve the exercises in any order. Rules of earning points are as follows:
+
+Function which passes every tests earns full points.
+Function which fails some but not all tests earns partial points.
+Function with compilation errors or missing definition earns no points.
+
+Declaration
+Your solution will only be graded if it includes the following declaration.
+<Name>
+<Neptun ID>
+<11. 04. 2019.>
+This solution was submitted and prepared by <Name, Neptun ID> for the 
+Functional Languages Midterm Exam.
+I declare that this solution is my own work.
+I have not copied or used third-party solutions.
+I have not passed my solution to my classmates, neither made it public.
+Students’ regulation of Eötvös Loránd University (ELTE Regulations Vol. 
+II. 74/C. § ) states that as long as a student presents another 
+student’s work - or at least the significant part of it - as his/her own 
+performance, it will count as a disciplinary fault. The most serious 
+consequence of a disciplinary fault can be a dismissal of the student 
+from the University.
+Exercises
+
+Return the first and the last element of a list. (1 point)
+startEnd :: [Int] -> [Int]
+
+startEnd []          == []
+startEnd [10]        == [10]
+startEnd [1,10]      == [1,10]
+startEnd [100,99..5] == [100,5]
+From index $i$ take $n$ elements from a list. Indexing starts with 0. We assume index $i$ and integer $n$ are nonnegative. (1 point)
+sublist :: Int -> Int -> [a] -> [a]
+
+sublist 1 4 "Haskell"  == "aske"
+sublist 10 4 "Haskell" == ""
+sublist 2 0 "Little Brown Fox..."   == ""
+sublist 16 10 "Little Brown Fox..." == "..."
+Mix elements of a triple conforming to the type. (1 points)
+shuffle :: (a, b, c) -> (b, c, a)
+
+shuffle (1, True, '?')            == (True, '?', 1)
+shuffle ("Haskell", '!', [5,6,7]) == ('!', [5,6,7], "Haskell")
+Exchange US dollars to euros. 1 US dollar is worth 0.89 euros. (1 point)
+exchange :: Int -> Double
+
+exchange 1000 == 890.0
+exchange 50   == 44.5
+exchange 75   == 66.75
+Define integer multiplication recursively with addition and subtraction only. (2 points)
+mul :: Integer -> Integer -> Integer
+
+mul 0 2   == 0
+mul 5 0   == 0
+mul 5 6   == 30
+mul 10 12 == 120
+Count words starting with upper case letters. (2 points)
+wordWithCapital :: String -> Int
+
+wordWithCapital "Every Word Starts With Upper Case Letter" == 7
+wordWithCapital "Here not Every one Starts With capital"   == 4
+wordWithCapital "thiS hAs SoME weiRd words As weLL"        == 2
+Define a function minList which traverses two lists simultaneously and takes the smaller element at each position. (2 points)
+minList :: [Int] -> [Int] -> [Int]
+
+minList [1..10] [2..11] == [1..10]
+minList [1..10] []      == []
+minList [1, 2, 3, 4, 5] [5, 4, 3, 2, 1] == [1, 2, 3, 2, 1]
+minList [1, 2, 4, 1, 7] [3, 1, -10]     == [1, 1, -10]
+Check whether every punctuation mark ('.', '!' and '?') is followed by a space character. (2 points)
+marksCorrect :: String -> Bool
+
+marksCorrect ""
+marksCorrect "x"
+marksCorrect "Hello! You look great today"
+marksCorrect "Howdy? I'm fine. Thanks"
+not (marksCorrect "Oh! This looks bad.Dunno why")
+not (marksCorrect "!")
+marksCorrect "I'm sure this goes smoothly"
+Define a function swop which replaces an element with another and vice versa. (2 points)
+swop :: Char -> Char -> [Char] -> [Char]
+
+swop 'a' 'b' ""   == ""
+swop 'a' 'b' "a"  == "b"
+swop 'a' 'b' "b"  == "a"
+swop 'a' 'b' "ab" == "ba"
+swop 'H' 'W' "Haskell Wiki" == "Waskell Hiki"
+swop 'i' 'a' "Haskell Wiki" == "Hiskell Waka"
+Collect all elements with multiple occurences in a list. That is, remove elements which occur only once. (2 points)
+multiple :: [Char] -> [Char]
+
+multiple ""            == ""
+multiple "haskell"     == "l"
+multiple "erlang"      == ""
+multiple "scala"       == "a"
+multiple "c++"         == "+"
+multiple "shakespeare" == "sae"

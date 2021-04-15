@@ -1,0 +1,160 @@
+Preliminary information
+Allowed materials:
+
+Haskell library documentation,
+Hoogle,
+Haskell cheat sheet
+course home page.
+
+If you have questions, ask the supervisors, not your fellow students.
+You can solve the exercises in any order. Rules of earning points are as follows:
+
+Function which passes every tests earns full points.
+Function which fails some but not all tests earns partial points.
+Function with compilation errors or missing definition earns no points.
+
+Declaration
+Your solution will only be graded if it includes the following declaration.
+{-
+<Name>
+<Neptun ID>
+<23. 05. 2019.>
+This solution was submitted and prepared by <Name, Neptun ID> for the 
+Functional Languages Final Exam.
+I declare that this solution is my own work.
+I have not copied or used third-party solutions.
+I have not passed my solution to my classmates, neither made it public.
+Students’ regulation of Eötvös Loránd University (ELTE Regulations Vol. 
+II. 74/C. § ) states that as long as a student presents another 
+student’s work - or at least the significant part of it - as his/her own 
+performance, it will count as a disciplinary fault. The most serious 
+consequence of a disciplinary fault can be a dismissal of the student 
+from the University.
+-}
+Exercises
+
+Define a function zeroToN which constructs a list with integers from 0 to $n$. (1 point)
+zeroToN :: Int -> [Int]
+
+zeroToN 0 == [0]
+zeroToN 3 == [0, 1, 2, 3]
+zeroToN 10 == [0, 1, 2, 3, 4, 5, 6, 7,  8, 9, 10]
+Define a function ping which takes a function f :: (a -> Bool) and a value of a and returns "Pong" when f returns True and "Pang" when f returns False. (1 point)
+ping :: (a -> Bool) -> a -> String
+
+ping null [] == "Pong"
+ping (\a -> True) () == "Pong"
+ping isNaN 10 == "Pang"
+ping isInfinite (1/0) == "Pong"
+ping id False == "Pang"
+Define a function timeMinus which shifts a time back with with a given time. In (Int, Int) the first Int represents hours, the second represents minutes. (2 point)
+timeMinus :: (Int, Int) -> (Int, Int) -> (Int, Int)
+
+timeMinus (10, 10) (0, 0) == (10, 10)
+timeMinus (10, 10) (10, 10) == (0, 0)
+timeMinus (0, 50) (0, 11) == (0, 39)
+timeMinus (23, 0) (2, 0) == (21, 0)
+timeMinus (10, 15) (8, 47) == (1, 28)
+timeMinus (8, 1) (10, 45) == (21, 16)
+Define a function isSmile which checks that a string is a smiley. That is,
+
+the first character is one of ':', '=' or ';'
+the second character is one of ')', ']', '>', 'D', '/' '|' or '}'
+the string has exactly two letters
+"=>" and ";/" are not considered as smileys
+
+(2 point)
+isSmile :: String -> Bool
+
+isSmile "=)"
+isSmile ":]"
+isSmile ";D"
+not (isSmile ":|)")
+not (isSmile "Haskell")
+not (isSmile "")
+not (isSmile "=>")
+not (isSmile ";/")
+Define a function manyInts which takes 7 Int parameters and constructs a list with integers that can be divided by 3. (2 points)
+manyInts :: Int -> Int -> Int -> Int -> Int -> Int -> Int -> [Int]
+
+manyInts 1 2 3 4 5 6 7 == [3, 6]
+manyInts 0 3 6 9 12 1 0 == [0,3,6,9,12,0]
+manyInts 0 0 0 0 0 0 0 == replicate 7 0
+null (manyInts 1 2 4 5 7 8 10)
+Define a function join which inserts a list between every two lists and concatenates all the lists. (2 points)
+Do not use intercalate or intersperse.
+join :: [a] -> [[a]] -> [a]
+
+join " " ["Haskell", "is", "wonderful"] == "Haskell is wonderful"
+join [0] [[1], [2], [3]] == [1,0,2,0,3]
+join "." ["O", "o"] == "O.o"
+join "a" (replicate 5 "N") == "NaNaNaNaN"
+Define a function disjoint which checks that two list has no common elements. (2 points)
+disjoint :: Eq a => [a] -> [a] -> Bool
+
+disjoint [1..10] [20..30]
+not $ disjoint [1..10] [10..30]
+disjoint [1..10] [11..30]
+not (disjoint [1..] [1..])
+Define a function equalsOn which checks that two functions yields same results on a list of arguments. (2 points)
+equalsOn :: Eq b => (a -> b) -> (a -> b) -> [a] -> Bool
+
+equalsOn (^2) (*2) [2]
+not (equalsOn (^3) (*2) [2, 87])
+equalsOn (<100) (>50) [51..99]
+equalsOn id (*1) [1..10]
+not (equalsOn (div 3) (mod 2) [1..])
+Define a function applyBoth :: (a -> b) -> (c -> d) -> (a, c) -> (b, d) which applies two functions over two components of a pair. (2 points)
+applyBoth even (+1) (1,2) == (False,3)
+applyBoth (== 'a') (== 'z') ('c', 'z') == (False,True)
+Define function a productOf :: (Int -> Bool) -> [Int] -> Int which calculates the product of integers that satisfy a condition. (2 points)
+productOf (<4) [1,7,2,6,3,3,5] == 18
+productOf even [8,32,65] == 256
+productOf (==2) [1,2,3,2,1,2,3] == 8
+
+Copy the following declarations into your solution:
+type Matrix = [[Double]]
+
+matrix0 = [[-1.0, 2.0, 3.0], [3.0, 5.0, 0.0], [1.0, -4.0, 2.0]]
+matrix1 = [[1.0, 1.0, 1.0], [3.0, 2.0, 1.0]]
+matrix2 = [[3.0, 2.0], [3.0, 1.0], [2.0, 1.0]]
+matrix3 = [[9.0, 7.0, 5.0], [6.0, 5.0, 4.0], [5.0, 4.0, 3.0]]
+
+Define a function times which multiplies every element in a matrix with a contant. (2 points)
+times :: Double -> Matrix -> Matrix
+
+times 1 matrix1 == matrix1
+times 3 matrix3 == [[27.0,21.0,15.0],[18.0,15.0,12.0],[15.0,12.0,9.0]]
+times 3.141 matrix0 == [[-3.141,6.282,9.423],[9.423,15.705,0.0],[3.141,-12.564,6.282]]
+Define a function squareIdentity which returns a matrix with $n$ rows and columns. Every element should be 0 except the main diagonal where the elements should be 1. The main diagonal is where the row index and the column index is equal. (3 points)
+squareIdentity :: Int -> Matrix
+
+squareIdentity 1 == [[1.0]]
+squareIdentity 2 == [[1.0,0.0],[0.0,1.0]]
+squareIdentity 4 == [[1.0,0.0,0.0,0.0],[0.0,1.0,0.0,0.0],[0.0,0.0,1.0,0.0],[0.0,0.0,0.0,1.0]]
+Define the reverse of map. It takes an element and a list of functions. It applies each function over the element. (2 points)
+reverseMap :: a -> [a -> b] -> [b]
+
+reverseMap 5 [(+1), (*2), (7-)] == [6, 10, 2]
+reverseMap 3 [\n -> take n [1..], \n -> replicate n 0, \n -> drop n [1..3]] == [[1..3], [0,0,0], []]
+Copy the following into your solution:
+
+data Element = O Char | I Int
+  deriving (Eq, Show)
+
+Define a function evalPolNot which takes the first operation in a [Element] list that is followed by two integers (O Char, I Int, I Int). It also performs the operation and replaces the three elements with the result. It is sufficient to consider operations +,-,* only) (3 points)
+evalPolNot :: [Element] -> [Element]
+
+evalPolNot [O ('*'), I 2, I 3] == [I 6]
+evalPolNot [O ('-'), I 2, I 3] == [I (-1)]
+evalPolNot [O ('+'), I 2, I 3] == [I 5]
+evalPolNot [O ('*'), O ('+'), I 1, I 1, I 4] == [O ('*'), I 2, I 4]
+evalPolNot [O ('-'), I 10, I 9] == [I 1]
+Define a function getVal which evaluates a [Element] list until it has only one I Int element. Then, return that element. (2 points)
+getVal :: [Element] -> Element
+
+getVal [I 0] == I 0
+getVal [O ('*'), I 2, I 3] == I 6
+getVal [O ('*'), O ('+'), I 1, I 1, I 4] == I 8
+getVal [O ('-'), I 10, I 9] == I 1
+getVal [O ('*'), O ('+'), I 2, I 3, O ('-'), I 5, I 9] == I (-20)

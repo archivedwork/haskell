@@ -1,0 +1,118 @@
+Preliminary information
+Allowed materials:
+
+Haskell library documentation,
+Hoogle,
+Haskell cheat sheet
+course home page.
+
+If you have questions, ask the supervisors, not your fellow students.
+You can solve the exercises in any order. Rules of earning points are as follows:
+
+Function which passes every tests earns full points.
+Function which fails some but not all tests earns partial points.
+Function with compilation errors or missing definition earns no points.
+
+Declaration
+Your solution will only be graded if it includes the following declaration.
+<Name>
+<Neptun ID>
+<26. 04. 2019.>
+This solution was submitted and prepared by <Name, Neptun ID> for the 
+Functional Languages Midterm Exam Retake.
+I declare that this solution is my own work.
+I have not copied or used third-party solutions.
+I have not passed my solution to my classmates, neither made it public.
+Students’ regulation of Eötvös Loránd University (ELTE Regulations Vol. 
+II. 74/C. § ) states that as long as a student presents another 
+student’s work - or at least the significant part of it - as his/her own 
+performance, it will count as a disciplinary fault. The most serious 
+consequence of a disciplinary fault can be a dismissal of the student 
+from the University.
+Grading
+
+16 – 14p: 5
+13 – 12p: 4
+11 – 10p: 3
+9 – 8p: 2
+7 – 0p: 1
+
+Exercises
+
+Convert a quadruple of elements of the same type into a list of the four elements. (1 point)
+tuple2List :: (a, a, a, a) -> [a]
+
+tuple2List (1, 2, 3, 4) == [1, 2, 3, 4]
+tuple2List ('A', 'B', 'C', 'D') == "ABCD"
+Calculate the average of a nonempty list of rational numbers (1 point)
+avg :: [Double] -> Double
+
+avg [2.2, 4.4, 3.5, 5.9] == 4.0
+avg [2.5] == 2.5
+Define a function f which adds up all integers in the first two pairs of a list. The list has at least two pairs. (1 point)
+f :: [(Int, Int)] -> Int
+
+f [(1, 1), (1, 1)] == 4
+f [(1, 2), (3, 4), (5, 6)] == 10
+f [(0, 10), (-10, 0), (9999, 1)] == 0
+f [(0, 10), (-10, 0), (9999, 1), (0, 2), (1, 10)] == 0
+Tests whether this general sequence starts with the given sequence. (1 point)
+startsWith :: String -> String -> Bool
+
+startsWith "Ha" "Haskell"
+startsWith "Scal" "Scala"
+startsWith "" "a"
+startsWith "" ""
+startsWith "Real World" "Real World Haskell"
+not (startsWith "a" "")
+not (startsWith "ha" "Haskell")
+Extend a string to a specified width. If the string is longer than the width, do not make it shorter. (2 points)
+align :: Int -> String -> String
+
+align 6 "apple"        == " apple"
+align 7 "apple"        == "  apple"
+align 2 "apple"        == "apple"
+align (-8) "excellent" == "excellent"
+align 15 "excellent"   == "      excellent"
+Calculate the dot product of two lists, that is the sum of the products of the corresponding elements. The two lists are assumed to have the same length. (2 points)
+dotProduct :: [Int] -> [Int] -> Int
+
+dotProduct [1, 2] [3, 4] == 11
+dotProduct [2, 2, 2] [5, 4, 3] == 24
+dotProduct [3] [2] == 6
+dotProduct [1..10] [1..10] ==  385
+Collect elements that are sandwiched between a smaller element from the left and a larger element from the right. (2 points)
+surrounded :: [Int] -> [Int]
+
+surrounded [1, 3, 5]     == [3]
+surrounded [2, 4, 8, 10] == [4, 8]
+surrounded [4, 3, 5, 9]  == [5]
+surrounded [1]   == []
+surrounded [1,5] == []
+surrounded []    == []
+Check whether all integers in a list have the same sign. $0$ can be positive and negative here, we ignore it. (2 points)
+sameSign :: [Int] -> Bool
+
+sameSign []
+sameSign [-1, -12, -123]
+sameSign [3, 7, 0, 32]
+sameSign [0, -1]
+sameSign [0, 0]
+not (sameSign [-1, 1, 2, 3])
+not (sameSign [-10..10])
+Split a list into chunks of length $n &gt; 0$. Only the last chunk is allowed to be shorter than $n$. (2 points)
+runs :: [a] -> Int -> [[a]]
+
+runs [] 9 == []
+runs [1,4,9,16,25,36,49,64,81,100] 3 == [[1,4,9],[16,25,36],[49,64,81],[100]]
+runs ["apple", "plum", "peach"] 1  == [["apple"], ["plum"], ["peach"]]
+runs ["apple", "plum", "peach", "currant", "gooseberry"] 2 == [["apple", "plum"], ["peach", "currant"], ["gooseberry"]]
+runs [0..23] 5 == [[0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23]]
+Capitalize the first letters of all words and convert everything else to small case. (2 points)
+titleCase :: String -> String
+
+titleCase "Haskell" == "Haskell"
+titleCase "haskeLl" == "Haskell"
+titleCase "a tRee With APPLES" == "A Tree With Apples"
+titleCase "a" == "A"
+titleCase "" == ""

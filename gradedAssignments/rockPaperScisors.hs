@@ -65,25 +65,35 @@ result x y
 -- 1 : the first player won the game (the first player won more rounds than the second one)
 -- 2 : the second player won the game
 
-{-
 tournament :: Rounds -> Int
-tournament (player1_List_Signs, player2_List_Signs)
-    | length(player1_List_Signs) == length(player2_List_Signs) = tournamentHelp (player1_List_Signs, player2_List_Signs) []
-    | otherwise   = error("lists length are not match")
--}
+tournament (player1_List, player2_List)
+    | length(player1_List) == length(player2_List) = tournamentHelp (player1_List, player2_List)
+    | otherwise   = error("lists length did not match")
+
+
+tournamentHelp ([], []) = 0
+tournamentHelp (lst1, lst2)
+    | length (filter (==True) (playerOneRounds lst1 lst2)) == length ( filter (==True) (playerTwoRounds lst1 lst2)) = 0
+    | length (filter (==True) (playerOneRounds lst1 lst2)) > length ( filter (==True) (playerTwoRounds lst1 lst2))  = 1
+    | otherwise                                                                = 2
+
+playerOneRounds :: Play -> Play -> [Bool]
+playerOneRounds [] [] = []
+playerOneRounds (x:xs) (y:ys) = (x `beats` y) : playerOneRounds xs ys
+
+
+playerTwoRounds :: Play -> Play -> [Bool]
+playerTwoRounds (x:xs) (y:ys) = (y `beats` x) : playerTwoRounds xs ys
+playerTwoRounds [] [] = []
 
 {-
+-- tournament_test (
 
-tournamentHelp ([], []) acc = acc
-tournamentHelp ((x:xs), (y:ys)) acc
-    |
--}
-
-{-
--- tournament (
-
-[1,1,0,1], [2,1,1,2]) == 2
 [1 0, 2 2, 0 1, 1 0, 2 0, 0 1, 1 2 , 1 1, 0 1, 1 2]
-[T  , F,     F,  T , F  , F  ,  F  , F  , F  , F ]
+[T  , F,     F,  T , F  , F  ,  F  , F  , F  , F ]   = 1st player won in 2 rounds
+
+[0 1, 2 2, 1 0, 0 1, 0 2, 1 0, 2 1, 1 1, 1 0, 2 1]
+[F  , F   , T  , F , T  , T  , T  , F  , T   , T]    = 2nd player won in 6 rounds
+
 -}
 

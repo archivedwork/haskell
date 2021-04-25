@@ -40,4 +40,11 @@ hasSea lst = Sea `elem` lst
 
 -- Detecting islands
 splitSegments :: Measures -> [Measures]
-splitSegments mes = groupBy (==) mes
+splitSegments (x:xs) = groupBy (==) (x:xs)
+
+-- sortElem :: Measure -> [Measure]
+sortElem [] = []
+sortElem (x:xs)
+  | isLand x  = x : sortElem xs
+  | hasSea (x:xs) = [x] ++ sortElem xs
+  | otherwise = sortElem xs

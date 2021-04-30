@@ -221,3 +221,27 @@ anyExit p (x:xs) (y:ys)
  = filter (\a -> a `elem` (x:xs)) (y:ys)
 anyExit p [] _ = []
 anyExit p _ [] = []
+
+
+
+
+startEnd [x] = [x]
+startEnd [] = []
+startEnd lst = [head lst] ++ [last lst]
+
+
+sublist x y lst
+    | x <= length(lst) || y <= length(lst) = take y (drop x lst)
+    | otherwise = []
+
+
+exchange n =  n * 0.89
+
+rep_mul 0 y = []
+rep_mul x y = y : rep_mul (x-1) y
+
+
+mul x y = sum $ rep_mul x y
+
+mull x 1 = x
+mull x y = x + mull x (y-1)

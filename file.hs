@@ -1,44 +1,223 @@
 import Data.Char
 import Data.List
 
--- removeLast even [0, 1, 2, 3] == [0, 1, 3] 
--- removeLast odd  [0, 1, 2, 3] == [0, 1, 2] 
--- removeLast even [1, 3, 5]    == [1, 3, 5]
--- removeLast (> 0) []          == []
 
-removeLast p [] = []
-removeLast p (x:xs) = reverse $ removeLAstHelper p (reverse (x:xs)) []
-
-removeLAstHelper p [] acc               = acc
-removeLAstHelper p (x:xs) acc          
-    | (p x)          =   acc ++ xs
-    | otherwise      = x : removeLAstHelper p xs acc
+mapInc :: [Int] -> [Int]
+mapInc (x:xs) = (x+1) : mapInc xs
+mapInc [] = []
 
 
+filterEven :: [Int] -> [Int]
+filterEven (x:xs)
+    | even x = x : filterEven xs
+    | otherwise = filterEven xs
+filterEven [] = []
 
 
-
-
--- surrounded [1, 3, 5, 5]       == [3]
--- surrounded [2, 4, 8, 10]      == [4, 8]
--- surrounded [4, 3, 5, 7, 4, 9] == [5]
--- surrounded [1]    == []
--- surrounded [1, 5] == []
--- surrounded []     == []
-surrounded [] = []
-surrounded [_] = []
-surrounded [x,y] = []
-surrounded (x:y:z:xs)
-    | x < y && z > y       = [y] ++ surrounded (y:z:xs)
-    | otherwise            =  surrounded (y:z:xs)
+-- [x..y]
+countTo a b
+    | a > b = []
+    | otherwise = a : countTo (a+1) b
 
 
 
+elem' :: Eq a => a -> [a] -> Bool
+elem' _ [] = False
+elem' e (x:xs)
+  --  | e == x = True
+    | all (\x -> x == e) (x:xs) = True
+    | otherwise =  elem' e xs
 
 
-penultimate [] = 0
-penultimate (x:xs)
-    | length(xs) <= 1 = x
-    | otherwise       = penultimate xs
+
+intersection xs ys = filter (\x -> x `elem` ys) xs
 
 
+hasAny xs ys = not $ null $ filter (\x -> x `elem` ys) xs
+
+ -- Define a function `f :: [Int] -> [Int]`.
+--   The list `f xs` should be a sublist of `xs`. 
+--   An element `x` of `xs` is included in `f xs` if it is 
+--   greater than every element `y` that occurs later in the list `xs`.
+-- Examples:
+--   f [3,2,1]             == [3,2,1]
+--   f [1,2,3]             == [3]
+--   f [3,2,1,3,2,1]       == [3,3,2,1]
+--   f [1,2,3,2,1]         == [3]
+--
+--   f [4,9,1,8,3,6,7,3,2] == [9,8,7,3,2]
+
+
+greaterThan a  [] = True
+greaterThan a (x:xs)
+    | a >= x     =  True -- x : greaterThan a xs
+    | otherwise = greaterThan a xs
+
+
+
+f :: [Int] -> [Int]
+f (x:xs)
+    -- | greaterThan x xs = x : f xs
+    | x > maximum (x:xs) = x :  f xs
+    | otherwise = f xs
+f [] = []
+
+
+-- map (+1) [1,4,8]
+map1 f (x:xs) = f x : map1 f xs
+map1 f [] = []
+
+intersect1 lst1 lst2 = filter (\x -> x `elem` lst2) lst1
+
+zeroToN :: Int -> [Int]
+zeroToN 0 = []
+zeroToN n =  n : zeroToN (n-1)
+zzToNN n = reverse $ zeroToN n
+
+-- or zeroToN n = [0..n]
+
+
+ping f x 
+    | f x == True = "Pong"
+    | otherwise = "Pang"
+
+
+--- isSmile :: Ord a => [a] -> Bool
+isSmile "=>" = False
+isSmile ";/" = False
+isSmile [] = False
+isSmile (x:y:xs)
+    | x == ':' || x == '=' || x == ';' && y == ')' || y == ']' || y == '>' || y == 'D' || y == '/' || y == '|' || y == '}' = True
+    | otherwise = False
+
+
+
+manyInts a1 a2 a3 a4 a5 a6 a7 = [x | x <- [a1,a2,a3,a4,a5,a6,a7], x `mod` 3 == 0]
+
+
+
+disjoint lst1 lst2 = null $ filter (\x -> x `elem` lst2) lst1
+
+
+equalsOn f1 f2 [] = False
+equalsOn f1 f2 (x:xs)   -- -> bool
+    | f1 x == f2 x = True
+    | otherwise = equalsOn f1 f2 xs
+
+
+applyBoth f1 f2 (x,y) = (f1 x, f2 y)
+
+
+productOf f (x:xs)
+    | f x = x * productOf f xs
+    | otherwise = productOf f xs
+productOf f [] = 1
+
+
+ff :: Int -> [Int] -> [Int]
+-- f 3 [1,2,3,4] === [1,1,1,2,2,2,3,3,3,4,4,4]
+ff n arr@(x:xs) = replicate n x ++ ff (n) xs
+ff n [] = []
+
+hello_worlds 1 = ""
+hello_worlds n = "Hello World" ++ hello_worlds (n-1)
+
+filtr f (x:xs)
+  | f x             = x : filtr f xs
+  | otherwise  =  filtr f xs 
+filtr f [] = []
+
+
+f1 :: Int -> [Int] -> [Int]
+f1 n (x:xs) =  filtr (<n) (x:xs) 
+
+
+
+f2 :: [Int] -> [Int]
+f2  lst@(x:xs)      = [v | (v,i) <- zip lst [1..], i `mod` 2 /= 0]
+
+
+
+apply :: (a, a -> b -> c, b) -> c
+apply (x, op, y) = x `op` y
+
+
+
+isVowel :: Char -> Bool
+isVowel chr
+    | chr `elem` "aeiou" = True
+    | otherwise = False
+
+
+mapBoth :: (a -> b) -> (a -> c) -> a -> (b,c)
+mapBoth f1 f2 x = (f1 x, f2 x)
+
+liftMaybe :: (Maybe a, Maybe b) -> Maybe (a,b)
+liftMaybe (Nothing, Just _) = Nothing
+liftMaybe (Just _, Nothing) = Nothing
+liftMaybe (Nothing, Nothing) = Nothing
+liftMaybe (Just x, Just y) = Just (x,y)
+
+
+elemwiseApply :: [(a->b, a)] -> [b]
+elemwiseApply [] = []
+elemwiseApply ((f,x):xs) = (f x) : elemwiseApply xs
+
+
+factors n = [x | x <- [1..n], n `mod` x ==  0]
+
+isPrime x = factors x == [1,x]
+
+primeNumber x y = [a | a <- [x..y], isPrime a]
+
+
+expand :: [(Int, a)] -> [a]
+expand ((n, x):xs) = (replicate n x) ++ expand xs
+expand [] = []
+
+
+oddIx lst = [i | (v,i) <- zip lst [0..], v `mod` 2 /= 0]
+
+
+addIndex lst = [v+i | (v,i) <- zip lst [0..]]
+
+
+-- generate :: (a -> Maybe a) -> a -> [a]
+-- -- generate (\n -> if n < 5 then Just (n+1) else Nothing) 0 == [0..5]
+-- generate f n
+--     | f == Just (n) = n : generate f (n+1)
+--     | otherwise = Nothing
+-- generate Nothing x = [x]
+
+
+data Number = Even Int | Odd Int deriving (Eq, Show)
+
+inc :: Number -> Number
+inc (Even x) = Odd (x+1)
+inc (Odd x) = Even (x+1)
+
+
+
+range :: Number ->  Number -> [Number]
+range (Even x) (Odd y) 
+    | x > y = []
+    | otherwise = [Even x] ++ range (Even (x+1)) (Odd y)
+
+range (Odd x) (Even y) 
+    | x > y = []
+    | otherwise = [Odd x] ++ range (Odd (x+1)) (Even y)
+range (Even x) (Even y) = [Even x]
+range (Odd x) (Odd y) = [Odd y]
+
+
+
+pipeline [f1, f2, f3] x = f1 $ f2 $ f3 x 
+
+
+-- anyExit :: (a -> b -> Bool) -> [a] -> [b] -> [a]
+anyExit p (x:xs) (y:ys) 
+    -- | p x y = x : anyExit p xs ys
+    -- | otherwise = anyExit p xs ys
+ = filter (\a -> a `elem` (x:xs)) (y:ys)
+anyExit p [] _ = []
+anyExit p _ [] = []

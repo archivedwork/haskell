@@ -245,3 +245,15 @@ mul x y = sum $ rep_mul x y
 
 mull x 1 = x
 mull x y = x + mull x (y-1)
+
+
+
+wordsWithCap_helper (x:xs) acc
+    | isUpper (x)     = acc ++ x : wordsWithCap_helper (xs) acc
+    | otherwise = wordsWithCap_helper xs acc
+
+wordsWithCap_helper lst acc =  acc
+
+
+wordsWithCapital lst = wordsWithCap_helper lst []
+

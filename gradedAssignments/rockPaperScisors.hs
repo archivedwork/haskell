@@ -97,3 +97,47 @@ playerTwoRounds [] [] = []
 
 -}
 
+
+
+
+
+
+
+
+test_validSigns =
+  [ validSigns (\x y -> x) 1 2                 == 1
+  , validSigns (\x y -> y) 1 2                 == 2]
+
+
+test_beats =
+  [ 0 `beats` 2 == True
+  , [(n, m, n `beats` m) | n <- [0,1,2], m <- [0,1,2]] == [(0,0,False),(0,1,False),(0,2,True),(1,0,True),(1,1,False),(1,2,False),(2,0,False),(2,1,True),(2,2,False)]]
+
+
+test_isDraw =
+   [ isDraw 1 1 == True
+   , [(n,m ,isDraw n m) | n <- [0,1,2], m <- [0,1,2]] == [(0,0,True),(0,1,False),(0,2,False),(1,0,False),(1,1,True),(1,2,False),(2,0,False),(2,1,False),(2,2,True)]]
+
+
+
+test_result =
+   [ result 0 1 == -1
+   , result 2 1 == 1
+   , [ result i j | i <- [0,1,2], j<- [0,1,2]] == [0,-1,1,1,0,-1,-1,1,0]]
+
+
+
+test_tournament =
+   [ tournament ([1,2,0,1,2,0,1,1,0,1], [0,2,1,0,0,1,2,1,1,2]) == 2
+   , tournament ([0,2,1,0,0,1,2,1,1,2], [1,2,0,1,2,0,1,1,0,1]) == 1
+   , tournament ([0,2], [0,2]) == 0
+   , tournament ([], [])       == 0]
+
+
+
+all_test = [
+    test_validSigns,
+    test_beats,
+    test_isDraw,
+    test_result,
+    test_tournament]

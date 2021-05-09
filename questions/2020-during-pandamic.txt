@@ -1,0 +1,360 @@
+[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `swapElems :: Eq a => a -> a -> [a] -> [a]`.
+--   `swapElems a b xs` should replace all occurences of `a` in the list `xs`
+--   by `b`, and all occurences of `b` by `a`.
+
+ 
+
+-- Examples:
+--   swapElems 1 2 [1]               = [2]
+--   swapElems 1 2 [2]               = [1]
+--   swapElems 1 2 [3]               = [3]
+--   swapElems 1 2 [1,9,5,3,2,1,5,2] = [2,9,5,3,1,2,5,1]
+
+ 
+
+swapElems :: Eq a => a -> a -> [a] -> [a]
+swapElems = undefined
+[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `duplicatePred :: (a -> Bool) -> [a] -> [a]`
+--   `duplicatePred p l` should duplicate the elements of `l` that satisfy the
+--   predicate `p`.
+
+ 
+
+-- Examples:
+--   duplicatePred odd  [1, 2, 3] = [1, 1, 2, 3, 3]
+--   duplicatePred even [1, 2, 3] = [1, 2, 2, 3]
+--   duplicatePred odd  [2, 4, 6] = [2, 4, 6]
+
+ 
+
+duplicatePred :: (a -> Bool) -> [a] -> [a]
+duplicatePred = undefined
+[11:01 PM, 6/10/2020] Mhamad Hakim: [3:20 PM] Rafael Bocquet
+    
+
+-- Define a function 'insertAtPred'.
+--   'insertAtPred p y xs' should insert y before the first element of xs that
+--   satisfies the predicate p, or at the end of xs if no element of xs
+--   satisfies the predicate p.
+
+
+insertAtPred :: (a -> Bool) -> a -> [a] -> [a]
+insertAtPred = undefined
+
+
+-- Examples:
+--  insertAtPred even 99 [1, 3, 5, 2] == [1, 3, 5, 99, 2]
+--  insertAtPred even 99 [1, 3, 5, 7] == [1, 3, 5, 7, 99]
+--  insertAtPred odd  99 [1, 3, 5, 2] == [99, 1, 3, 5, 2]
+--  insertAtPred even 99 []           == [99]
+[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a higher-order function `f :: (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]`
+--  that uses all of its arguments.
+
+ 
+
+f :: (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]
+f = undefined
+[11:01 PM, 6/10/2020] Mhamad Hakim: -- practice
+-- Define a function addSquaresUpTo.
+--   'addSquaresUpTo n x' should return the list of all integers
+--   of the form 'n + a*a' that are less than or equal to x (where a >= 0).
+
+
+
+-- Examples:
+--   addSquaresUpTo 0   48   == [0,1,4,9,16,25,36]
+--   addSquaresUpTo 0   49   == [0,1,4,9,16,25,36,49]
+--   addSquaresUpTo 200 100  == []
+--   addSquaresUpTo 568 1000 == [568,569,572,577,584,593,604,617,632,649,668,689,712,737,764,793,824,857,892,929,968]
+
+addSquaresUpTo :: Integer -> Integer -> [Integer] 
+-- addSquaresUpTo n x = [a | a <- [1..], (a >= 0), (n + a*a) <= x]
+[11:01 PM, 6/10/2020] Mhamad Hakim: -- 1. Define a type 'Date' that can encode dates in the format DD-MM-YYYY.
+
+-- 2. Define a function 'nextDay :: Date -> Date'.
+--    You can assume that there are no bissextile years.
+
+ndaysInMonth :: [Int]
+ndaysInMonth = [ 31, 28, 31, 30, 31, 30
+              , 31, 31, 30, 31, 30, 31 ]
+
+-- nextDay :: Date -> Date
+-- nextDay = undefined
+
+-- Examples:
+--   nextDay {{01-01-2000}} == {{02-01-2000}}
+--   nextDay {{30-05-2000}} == {{31-05-2000}}
+--   nextDay {{30-06-2000}} == {{01-07-2000}}
+--   nextDay {{31-12-2000}} == {{01-01-2001}}
+[11:01 PM, 6/10/2020] Mhamad Hakim: swapElems' :: Eq a => a -> a -> [a] -> [a]
+swapElems' x y (xs) = [if a == x then y else if a == y then x else a | a <- xs]
+[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `f :: [(Int, a)] -> [a]`.
+--  `f` takes a list of pairs as argument.
+--  for each pair (x, y) in that list, `f` should add `x` times the element `y` to the result.
+
+ 
+
+f :: [(Int, a)] -> [a]
+f = undefined
+
+ 
+
+-- Examples:
+--  f []                             = []
+--  f [(0, 'a')]                     = ""
+--  f [(1, 'a')]                     = "a"
+--  f [(2, 'a')]                     = "aa"
+--  f [(0, 'x'), (2, 'a')]           = "aa"
+--  f [(2, 'a'), (3, 'b'), (1, 'a')] = "aabbba"
+[11:01 PM, 6/10/2020] Mhamad Hakim: this is my question and then he asked me to let it be able to take also negative values
+[11:01 PM, 6/10/2020] Mhamad Hakim: f :: Num a =>  (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]
+f f1 op [] = []
+f f1 op x = [ f1 a (op a) a | a <- x]
+[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `f :: [(Int, a)] -> [a]`.
+--  `f` takes a list of pairs as argument.
+--  for each pair (x, y) in that list, `f` should add `x` times the element `y` to the result.
+
+-- solution --
+
+func :: (Int, a) -> [a]
+func (x, y) = if x <= 0 then [] else [y] ++  func (x - 1, y)
+
+f :: [(Int, a)] -> [a]
+f [] = []
+f ((x , y):xs) = func (x,y) ++ (f xs)
+
+ 
+
+-- Examples:
+--  f []                             = []
+--  f [(0, 'a')]                     = ""
+--  f [(1, 'a')]                     = "a"
+--  f [(2, 'a')]                     = "aa"
+--  f [(0, 'x'), (2, 'a')]           = "aa"
+--  f [(2, 'a'), (3, 'b'), (1, 'a')] = "aabbba"
+
+-- Define a function `f :: Eq a => [a] -> [a] -> Int`.
+-- Given two lists `xs` and `ys`, `f xs ys` should count the number of positions
+-- where the two lists match.
+-- Examples:
+--  f "abc" "abc" == 3
+--  f "abc" "aaa" == 1
+--  f "abc" "aac" == 2
+--  f "abc" "cab" == 0
+--  f ""    "abc" == 0
+-- f :: Eq a => [a] -> [a] -> Int
+-- f = undefined
+-----------------------------------------
+-- 1. Define a type Time, that can store times of the day in the format (HH AM/HH PM).
+--   (e.g. 12 AM,  01 AM,  12 PM,  07 PM, ...)
+-- 2. Define a function `nextTime :: Time -> Time` that advances a given time of the day by 1 hour.
+--  nextTime 11 PM == 12 AM (or 00 AM if you want)
+-----------------------------------------
+-- Define a function `allDifferent :: Eq a => [a] -> Bool`.
+--   `allDifferent xs` should test whether all elements of the list xs are different.
+-- Examples:
+--   allDifferent []           == True
+--   allDifferent [1, 1]       == False
+--   allDifferent [1, 2, 3]    == True
+--   allDifferent [1, 2, 3, 2] == False
+--allDifferent :: Eq a => [a] -> Bool
+-- allDifferent = undefined
+
+-----------------------------------------
+-- Define a function `f :: Eq a => [a] -> [[a]]`
+--   `f xs` should split the list `xs` between each pair of consecutive equal elements.
+-- Examples:
+--   f [1, 2, 3, 4] = [[1, 2, 3, 4]]
+--   f [1, 2, 2, 1] = [[1, 2], [2, 1]]
+--   f [1, 1, 1, 1] = [[1], [1], [1], [1]]
+--   f [] = []
+-- f :: Eq a => [a] -> [[a]]
+-- f = undefined
+
+-----------------------------------------
+-- Define a function `f :: Eq a => [a] -> [Int]`.
+--   `f xs` should replace each element `x` of `xs` by the number of previous
+--   occurences of `x` in `xs`.
+-- Examples:
+--   f [1, 1, 1, 1]       = [0, 1, 2, 3]
+--   f [1, 2, 3, 4]       = [0, 0, 0, 0]
+--   f [1, 2, 1, 2, 2, 1] = [0, 0, 1, 1, 2, 2]
+--   f []                 = []
+-- f :: Eq a => [a] -> [Int]
+-- f = undefined
+-----------------------------------------
+
+--Define a function 'insertAtPred'.
+--'insertAtPred p y xs' should insert y before the first element of xs that
+--  satisfies the predicate p, or at the end of xs if no element of xs
+--  satisfies the predicate p.
+
+--Examples:
+-- insertAtPred even 99 [1, 3, 5, 2] == [1, 3, 5, 99, 2]
+-- insertAtPred even 99 [1, 3, 5, 7] == [1, 3, 5, 7, 99]
+-- insertAtPred odd  99 [1, 3, 5, 2] == [99, 1, 3, 5, 2]
+-- insertAtPred even 99 []           == [99]
+
+
+- Define a function `f :: [Int] -> [[Int]]` that breaks a list of integers
+-- into its non-decreasing continuous subsequences.
+
+-- Examples:
+--    f []        = []
+--    f [0]       = [[0]]
+--    f [1,2,3]   = [[1,2,3]]
+--    f [3,2,1]   = [[3], [2], [1]]      
+--    f [1,4,2,3] = [[1,4], [2,3]]
+--    f [1,2,4,3] = [[1,2,4], [3]]
+--    f [1,1,1]   = [[1,1,1]]
+
+
+-- Define a function `fx :: Int -> [a] -> [[a]]`.
+--`f n xs` should breaks the list `xs` into chunks of size `n`.
+
+-- Examples:
+--   fx 1 [1, 2, 3, 4] == [[1], [2], [3], [4]]
+--   fx 2 [1, 2, 3, 4] == [[1, 2], [3, 4]]
+--   fx 3 [1, 2, 3, 4] == [[1,2,3], [4]]
+--   fx 4 [1, 2, 3, 4] == [[1,2,3,4]]
+
+
+-- Define a function `f2 :: Eq a => [a] -> [[a]]`
+--   `f xs` should split the list `xs` between each pair of consecutive equal elements.
+-- Examples:
+--   f2 [1, 2, 3, 4] = [[1, 2, 3, 4]]
+--   f2 [1, 2, 2, 1] = [[1, 2], [2, 1]]
+--   f2 [1, 1, 1, 1] = [[1], [1], [1], [1]]
+--   f2 [] = []
+
+
+-- Define a function `f :: [Int] -> [Int]`.
+--   `f` takes a list `xs` of integers, and returns a list consisting of the
+--   elements of `xs` that are less than or equal to the previous element of
+--   `xs`.
+
+ 
+
+-- Examples:
+--   f5 []           == []
+--   f5 [1]          == [1]
+--   f5 [1, 2, 3, 4] == [1]
+--   f5 [4, 3, 2, 1] == [4, 3, 2, 1]
+--   f5 [2, 1, 4, 3] == [2, 1, 3]     -- 4 is removed because 1 < 4
+--   f5 [3, 4, 1, 2] == [3, 1]        -- 4 is removed because 3 < 4, 2 is removed because 1 < 2
+
+
+
+[1:06 PM] Rafael Bocquet
+    
+-- Define a function `f :: String -> [String]`.
+--   `f s` should split the string `s` into groups of adjacent lower case characters and groups of adjacent upper case characters.
+--   Other kinds of characters should be ignored.
+
+
+-- Examples:
+--   f ""           == []
+--   f "abc"        == ["abc"]
+--   f "abcABC"     == ["abc", "ABC"]
+--   f "aAbBcC"     == ["a", "A", "b", "B", "c", "C"]
+--   f "1234567890" == []
+--   f "a1b2c3"     == ["abc"]
+
+
+f :: String -> [String]
+f = undefined
+ 
+
+
+
+​[2:14 PM] 
+      Poór Artúr added Adawy Mahmoud to the chat.
+      
+      
+      
+    ​[2:17 PM] Rafael Bocquet
+    
+-- Define a function `merge3 :: Ord a => [a] -> [a] -> [a] -> [a]`. `merge3`
+--   takes 3 sorted list `xs`, `ys`, `zs` and returns a single sorted list
+--   containing the elements of `xs`, `ys` and `zs`. (without using the sort
+--   function).
+
+
+-- Examples:
+  -- merge3 [1, 2, 3] [7, 8, 9] [4, 5, 6] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  -- merge3 [1, 4, 9] [2, 6, 8] [3, 5, 7] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  -- merge3 [1, 2, 6] [3, 4, 5] []        = [1, 2, 3, 4, 5, 6]
+  -- merge3 []        [1, 2, 3] []        = [1, 2, 3]
+
+
+merge3 :: Ord a => [a] -> [a] -> [a] -> [a]
+merge3 = undefined
+
+
+
+​[2:28 PM] 
+      Poór Artúr added Tiruvenkatapuram Koteeswaran Ashwin Kumar to the chat.
+      
+      
+      
+    ​[2:30 PM] Rafael Bocquet
+    
+-- Define a function `duplicateLast :: (a -> Bool) -> [a] -> [a]`
+--   `duplicateLast p xs` should duplicate the last element of `xs` that satisfies the predicate `p`.
+
+
+-- Examples:
+--   duplicateLast odd  [1] == [1, 1]
+--   duplicateLast even [0, 1, 2, 3] == [0, 1, 2, 2, 3]
+--   duplicateLast odd  [0, 1, 2, 3] == [0, 1, 2, 3, 3]
+--   duplicateLast odd  [0, 2, 4, 6] == [0, 2, 4, 6]
+
+
+duplicateLast :: (a -> Bool) -> [a] -> [a]
+duplicateLast = undefined
+ 
+
+
+
+​[3:03 PM] 
+      Poór Artúr added Hakim Mahamad to the chat.
+      
+      
+      
+    ​[3:05 PM] Rafael Bocquet
+    
+-- Define a function `f :: (a -> Bool) -> [a] -> [[a]]`.
+--   `f p xs` should be the list of the maximal continuous sublists of `xs` that
+--   consist only of elements satisfying the predicate `p`.
+
+
+-- Examples:
+--   f even [0, 1, 2, 3] == [[0], [2]]
+--   f odd  [0, 1, 2, 3] == [[1], [3]]
+--   f even [0, 2, 1, 3] == [[0, 2]]
+--   f odd  [0, 2, 1, 3] == [[1, 3]]
+--   f odd  [0, 2, 4]    == []
+--   f odd  [1, 1, 1, 0, 1, 1, 1] == [[1, 1, 1], [1, 1, 1]]
+
+
+f :: (a -> Bool) -> [a] -> [[a]]
+f = undefined
+
+
+
+​[3:14 PM] Rafael Bocquet
+    f odd [1, 0, 1, 3, 0, 1, 5, 3] == [[1], [1, 3], [1, 5, 3]]
+​[3:44 PM] 
+      Poór Artúr added Sharifova Naila to the chat.
+      
+      
+      
+    ​[3:46 PM] Rafael Bocquet
+    
+-- Define a higher-order function `f :: ((a, b) -> (b, c)) -> (a -> a -> b) -> [a] -> [(c, b)]`
+--   that uses all of its arguments.
+
+
+f :: ((a, b) -> (b, c)) -> (a -> a -> b) -> [a] -> [(c, b)]
+f = undefined
+

@@ -231,4 +231,150 @@ f5 [x] = [x]
 f5 (x:y:xs)
   | sort (x:y:xs) == (x:y:xs) = [x]
   | x <= y   = x : f5 (xs) 
-  | otherwise =  x  : f5 (y:xs)
+  | otherwise =  x  : f5 (y:xs) 
+
+
+join :: Eq a => [a] -> [[a]] -> [a]
+
+join str [] = []
+join str lst@((x:xs):ys) 
+    | ys == [] = (x:xs) ++ join str ys
+    | otherwise  =  (x:xs) ++ str ++ join str ys
+
+
+
+
+test_join = [
+    join " " ["Haskell", "is", "wonderful"] == "Haskell is wonderful",
+    join [0] [[1], [2], [3]] == [1,0,2,0,3],
+    join "." ["O", "o"] == "O.o",
+    join "a" (replicate 5 "N") == "NaNaNaNaN"]
+
+
+
+disjoint :: Eq a => [a] -> [a] -> Bool
+
+
+test_disjoint = [
+    disjoint [1..10] [20..30],
+    not $ disjoint [1..10] [10..30],
+    disjoint [1..10] [11..30],
+    not  (disjoint [1..10] [1..10])]
+
+
+disjoint [] [] = False
+disjoint xly@(x:xs) yls@(y:ys)
+  | last (xly) == head yls  = False
+  | x /= y   =  True
+  | otherwise = disjoint xs ys
+
+
+
+
+
+
+equalsOn :: Eq b => (a -> b) -> (a -> b) -> [a] -> Bool
+equalsOn f1 f2 [] = False
+equalsOn f1 f2 (x:xs)
+   | f1 x == f2 x     = True
+   | otherwise       =  equalsOn f1 f2 xs
+
+
+test_equalsOn = [
+    equalsOn (^2) (*2) [2],
+    equalsOn (<100) (>50) [51..99],
+    equalsOn id (*1) [1..10],
+    not (equalsOn (div 3) (mod 2) [1..1000]),
+    not (equalsOn (^3) (*2) [2, 87])]
+
+
+marksCorrect :: String -> Bool
+marksCorrect "" = True
+marksCorrect "!" = False
+marksCorrect "?" = False
+marksCorrect "." = False
+marksCorrect [x] = True
+marksCorrect lst@(x:y:xs)
+    | x `elem` "!?." && y == ' '  = marksCorrect (xs)
+    | x `elem` "!?." && y /= ' ' = False
+    | otherwise = marksCorrect (y:xs)
+
+
+
+test_markCorrect = [
+    marksCorrect "",
+    marksCorrect "x",
+    marksCorrect "Hello! You look great today",
+    marksCorrect "Howdy? I'm fine. Thanks",
+    not (marksCorrect "Oh! This looks bad.Dunno why"), -- 
+    not (marksCorrect "!"),
+    not (marksCorrect "hello!"), --
+    marksCorrect "I'm sure this goes smoothly"]
+
+
+
+ -- Define a function `swapElems :: Eq a => a -> a -> [a] -> [a]`.
+--   `swapElems a b xs` should replace all occurences of `a` in the list `xs`
+--   by `b`, and all occurences of `b` by `a`.
+
+ 
+
+-- Examples:
+test_swapElems = [
+  swapElems 1 2 [1]               == [2],
+  swapElems 1 2 [2]               == [1],
+  swapElems 1 2 [3]               == [3],
+  swapElems 1 2 [1,9,5,3,2,1,5,2] == [2,9,5,3,1,2,5,1]]
+
+ 
+
+swapElems :: Eq a => a -> a -> [a] -> [a]
+swapElems a b [] = []
+swapElems a b (x:xs)
+    | a == x        = b : swapElems a b xs
+    | b == x        = a : swapElems a b xs
+    | otherwise     = x : swapElems a b xs
+
+
+
+ -- Define a function `duplicatePred :: (a -> Bool) -> [a] -> [a]`
+--   `duplicatePred p l` should duplicate the elements of `l` that satisfy the
+--   predicate `p`.
+
+ 
+
+-- Examples:
+test_duplicatePred = [
+  duplicatePred odd  [1, 2, 3] == [1, 1, 2, 3, 3],
+  duplicatePred even [1, 2, 3] == [1, 2, 2, 3],
+  duplicatePred odd  [2, 4, 6] == [2, 4, 6]]
+
+ 
+
+duplicatePred :: (a -> Bool) -> [a] -> [a]
+duplicatePred p [] = []
+duplicatePred  p lst@(x:xs)
+    | p x          = x : x : duplicatePred p xs
+    | otherwise    = x : duplicatePred p xs
+
+
+
+-- Define a function `fx :: Int -> [a] -> [[a]]`.
+--`f n xs` should breaks the list `xs` into chunks of size `n`.
+
+-- Examples:
+--   fx 1 [1, 2, 3, 4] == [[1], [2], [3], [4]]
+--   fx 2 [1, 2, 3, 4] == [[1, 2], [3, 4]]
+--   fx 3 [1, 2, 3, 4] == [[1,2,3], [4]]
+--   fx 4 [1, 2, 3, 4] == [[1,2,3,4]]
+
+fxx n [] = []
+fxx n lst@(x:xs) 
+    | n == 1    = take 1 lst :  fxx n xs
+    | otherwise = [takeWhile (\x -> x <= n) lst, dropWhile (\x -> x <= n) lst]
+
+
+reverseMap :: a -> [a -> b] -> [b]
+reverseMap n [] = []
+reverseMap n (f:fx) = f n : reverseMap n fx
+-- reverseMap 5 [(+1), (*2), (7-)] == [6, 10, 2]

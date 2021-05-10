@@ -378,3 +378,22 @@ reverseMap :: a -> [a -> b] -> [b]
 reverseMap n [] = []
 reverseMap n (f:fx) = f n : reverseMap n fx
 -- reverseMap 5 [(+1), (*2), (7-)] == [6, 10, 2]
+
+
+
+
+untabify :: Int -> String -> String
+untabify n [] = []
+untabify n lst@(x:xs)
+    | x == '\t'   = replicate n ' ' ++ untabify n xs
+    | otherwise   = x : untabify n xs
+    
+
+
+
+test_untabify = [
+    untabify 4 "where x = 1\t" == "where x = 1    ",
+    untabify 4 "\twhere x =\t1" == "    where x =    1",
+    untabify 8 "\twhere x =\t1" == "        where x =        1",
+    untabify 4 "\t\twhere x =\t\t1" == "        where x =        1",
+    untabify 4 "" == ""]

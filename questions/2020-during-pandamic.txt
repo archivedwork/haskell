@@ -1,4 +1,4 @@
-[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `swapElems :: Eq a => a -> a -> [a] -> [a]`.
+-- Define a function `swapElems :: Eq a => a -> a -> [a] -> [a]`.
 --   `swapElems a b xs` should replace all occurences of `a` in the list `xs`
 --   by `b`, and all occurences of `b` by `a`.
 
@@ -14,7 +14,9 @@
 
 swapElems :: Eq a => a -> a -> [a] -> [a]
 swapElems = undefined
-[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `duplicatePred :: (a -> Bool) -> [a] -> [a]`
+
+
+-- Define a function `duplicatePred :: (a -> Bool) -> [a] -> [a]`
 --   `duplicatePred p l` should duplicate the elements of `l` that satisfy the
 --   predicate `p`.
 
@@ -47,14 +49,17 @@ insertAtPred = undefined
 --  insertAtPred even 99 [1, 3, 5, 7] == [1, 3, 5, 7, 99]
 --  insertAtPred odd  99 [1, 3, 5, 2] == [99, 1, 3, 5, 2]
 --  insertAtPred even 99 []           == [99]
-[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a higher-order function `f :: (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]`
+
+
+-- Define a higher-order function `f :: (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]`
 --  that uses all of its arguments.
 
  
 
 f :: (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]
 f = undefined
-[11:01 PM, 6/10/2020] Mhamad Hakim: -- practice
+
+-- practice
 -- Define a function addSquaresUpTo.
 --   'addSquaresUpTo n x' should return the list of all integers
 --   of the form 'n + a*a' that are less than or equal to x (where a >= 0).
@@ -69,7 +74,7 @@ f = undefined
 
 addSquaresUpTo :: Integer -> Integer -> [Integer] 
 -- addSquaresUpTo n x = [a | a <- [1..], (a >= 0), (n + a*a) <= x]
-[11:01 PM, 6/10/2020] Mhamad Hakim: -- 1. Define a type 'Date' that can encode dates in the format DD-MM-YYYY.
+-- 1. Define a type 'Date' that can encode dates in the format DD-MM-YYYY.
 
 -- 2. Define a function 'nextDay :: Date -> Date'.
 --    You can assume that there are no bissextile years.
@@ -86,9 +91,8 @@ ndaysInMonth = [ 31, 28, 31, 30, 31, 30
 --   nextDay {{30-05-2000}} == {{31-05-2000}}
 --   nextDay {{30-06-2000}} == {{01-07-2000}}
 --   nextDay {{31-12-2000}} == {{01-01-2001}}
-[11:01 PM, 6/10/2020] Mhamad Hakim: swapElems' :: Eq a => a -> a -> [a] -> [a]
-swapElems' x y (xs) = [if a == x then y else if a == y then x else a | a <- xs]
-[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `f :: [(Int, a)] -> [a]`.
+
+-- Define a function `f :: [(Int, a)] -> [a]`.
 --  `f` takes a list of pairs as argument.
 --  for each pair (x, y) in that list, `f` should add `x` times the element `y` to the result.
 
@@ -106,11 +110,16 @@ f = undefined
 --  f [(2, 'a')]                     = "aa"
 --  f [(0, 'x'), (2, 'a')]           = "aa"
 --  f [(2, 'a'), (3, 'b'), (1, 'a')] = "aabbba"
-[11:01 PM, 6/10/2020] Mhamad Hakim: this is my question and then he asked me to let it be able to take also negative values
-[11:01 PM, 6/10/2020] Mhamad Hakim: f :: Num a =>  (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]
+
+
+-- this is my question and then he asked me to let it be able to take also negative values
+f :: Num a =>  (a -> b -> a -> c) -> (a -> b) -> [a] -> [c]
 f f1 op [] = []
 f f1 op x = [ f1 a (op a) a | a <- x]
-[11:01 PM, 6/10/2020] Mhamad Hakim: -- Define a function `f :: [(Int, a)] -> [a]`.
+
+
+
+-- Define a function `f :: [(Int, a)] -> [a]`.
 --  `f` takes a list of pairs as argument.
 --  for each pair (x, y) in that list, `f` should add `x` times the element `y` to the result.
 
@@ -245,7 +254,6 @@ f ((x , y):xs) = func (x,y) ++ (f xs)
 
 
 
-[1:06 PM] Rafael Bocquet
     
 -- Define a function `f :: String -> [String]`.
 --   `f s` should split the string `s` into groups of adjacent lower case characters and groups of adjacent upper case characters.
@@ -263,17 +271,9 @@ f ((x , y):xs) = func (x,y) ++ (f xs)
 
 f :: String -> [String]
 f = undefined
- 
 
 
 
-​[2:14 PM] 
-      Poór Artúr added Adawy Mahmoud to the chat.
-      
-      
-      
-    ​[2:17 PM] Rafael Bocquet
-    
 -- Define a function `merge3 :: Ord a => [a] -> [a] -> [a] -> [a]`. `merge3`
 --   takes 3 sorted list `xs`, `ys`, `zs` and returns a single sorted list
 --   containing the elements of `xs`, `ys` and `zs`. (without using the sort
@@ -292,13 +292,7 @@ merge3 = undefined
 
 
 
-​[2:28 PM] 
-      Poór Artúr added Tiruvenkatapuram Koteeswaran Ashwin Kumar to the chat.
-      
-      
-      
-    ​[2:30 PM] Rafael Bocquet
-    
+
 -- Define a function `duplicateLast :: (a -> Bool) -> [a] -> [a]`
 --   `duplicateLast p xs` should duplicate the last element of `xs` that satisfies the predicate `p`.
 
@@ -316,13 +310,7 @@ duplicateLast = undefined
 
 
 
-​[3:03 PM] 
-      Poór Artúr added Hakim Mahamad to the chat.
-      
-      
-      
-    ​[3:05 PM] Rafael Bocquet
-    
+
 -- Define a function `f :: (a -> Bool) -> [a] -> [[a]]`.
 --   `f p xs` should be the list of the maximal continuous sublists of `xs` that
 --   consist only of elements satisfying the predicate `p`.
@@ -342,15 +330,10 @@ f = undefined
 
 
 
-​[3:14 PM] Rafael Bocquet
-    f odd [1, 0, 1, 3, 0, 1, 5, 3] == [[1], [1, 3], [1, 5, 3]]
-​[3:44 PM] 
-      Poór Artúr added Sharifova Naila to the chat.
-      
-      
-      
-    ​[3:46 PM] Rafael Bocquet
-    
+
+f odd [1, 0, 1, 3, 0, 1, 5, 3] == [[1], [1, 3], [1, 5, 3]]
+
+
 -- Define a higher-order function `f :: ((a, b) -> (b, c)) -> (a -> a -> b) -> [a] -> [(c, b)]`
 --   that uses all of its arguments.
 

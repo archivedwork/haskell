@@ -38,6 +38,9 @@ startEnd []          == []
 startEnd [10]        == [10]
 startEnd [1,10]      == [1,10]
 startEnd [100,99..5] == [100,5]
+
+
+
 From index $i$ take $n$ elements from a list. Indexing starts with 0. We assume index $i$ and integer $n$ are nonnegative. (1 point)
 sublist :: Int -> Int -> [a] -> [a]
 
@@ -63,6 +66,7 @@ mul 0 2   == 0
 mul 5 0   == 0
 mul 5 6   == 30
 mul 10 12 == 120
+
 Count words starting with upper case letters. (2 points)
 wordWithCapital :: String -> Int
 

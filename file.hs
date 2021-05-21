@@ -257,3 +257,21 @@ wordsWithCap_helper lst acc =  acc
 
 wordsWithCapital lst = wordsWithCap_helper lst []
 
+
+
+
+
+
+-- Define a higher-order function `f :: ((a, b) -> (b, c)) -> (a -> a -> b) -> [a] -> [(c, b)]`
+--   that uses all of its arguments.
+
+
+-- fp :: ((a, b) -> (b, c)) -> (a -> a -> b) -> [a] -> [(c, b)]
+-- -- fp          f1                 f2             lst = [(c,b)]              
+-- fp f1 f2 lst = [swap $ f1 (head lst, f2 (head lst) (head lst))]
+
+-- -- [swap $ f1 (head lst, f2 (head lst) (head lst)) . f2 (head lst) (head lst) ]
+
+
+-- -- f1_example (x,y) = (y, True)
+

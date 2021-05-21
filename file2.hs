@@ -210,8 +210,8 @@ f4 p (x:xs)
     | p x  = x : f4 p xs
     | otherwise = f4 p xs
 
-myFun p lst
-    | sort lst == lst    = group $ f4 p lst
+myFun p lst@(x:y:xs)
+    | sort lst == lst   = group $ f4 p lst
     | otherwise          = [f4 p lst]
 
 
@@ -397,3 +397,34 @@ test_untabify = [
     untabify 8 "\twhere x =\t1" == "        where x =        1",
     untabify 4 "\t\twhere x =\t\t1" == "        where x =        1",
     untabify 4 "" == ""]
+
+
+
+
+type Price = Int
+type NoOfLegs = Int
+type Color = String
+type Material = String
+
+
+
+data Furniture = Chair Price NoOfLegs| Table Price Color Material deriving (Show, Eq)
+
+
+whiteTable :: [Furniture] -> Maybe Furniture
+whiteTable [] = Nothing
+whiteTable ((Chair pr nLegs):xs) = whiteTable xs
+whiteTable ((Table pr clr mat):xs) 
+    | clr == "white"     = Just (Table pr clr mat)
+    | otherwise          = whiteTable xs
+
+
+
+test_whiteTable = [
+    whiteTable [] == Nothing,
+    whiteTable [Chair 150 3, Chair 100 4] == Nothing,
+    whiteTable [Chair 100 4, Chair 200 2, Chair 150 4] == Nothing,
+    whiteTable [Table 500 "brown" "pine", Table 550 "black" "cypress", Chair 100 2] == Nothing,
+    whiteTable [Table 400 "grey" "pine", Table 600 "black" "red cedar", Chair 100 2, Table 400 "white smoke" "spruce" ] == Nothing,
+    whiteTable [Table 400 "grey" "pine",  Table 400 "white smoke" "spruce", Table 600 "black" "red cedar", Table 600 "white" "pine", Chair 100 2] == Just (Table 600 "white" "pine"),
+    whiteTable [Chair 150 3, Table 400 "grey" "pine", Table 400 "white" "spruce", Table 400 "white smoke" "spruce", Table 600 "white" "red cedar", Table 600 "black" "red cedar", Chair 100 2] == Just (Table 400 "white" "spruce")]
